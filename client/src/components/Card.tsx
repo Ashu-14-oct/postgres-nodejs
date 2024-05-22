@@ -22,9 +22,15 @@ const Card = () => {
     try {
       e.preventDefault()
       const data = await addTodo(todoData);
-      console.log(data?.data.data.rows[0].todo);
+      console.log(data);
       
-      const newTodo = data?.data.data.rows[0].todo;
+      const newTodo = {
+        id: data.id,
+        todo: data.todo,
+        completed: data.completed,
+      };
+      console.log(newTodo);
+      
       setTodo(prevTodo => [...prevTodo, newTodo]);
       setTodoData("");
     } catch (error) {
@@ -40,7 +46,8 @@ const Card = () => {
   useEffect(() => {
     async function getTodoData() {
       const data = await getTodo();
-      const allRows = data?.data.rows;
+      
+      const allRows = data;
       setTodo(allRows);
       console.log(allRows);
     }
